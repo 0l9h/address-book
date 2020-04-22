@@ -10,9 +10,8 @@ status = False
 user_key = input('Input name to get phone number:\n')
 
 for name in address_book[0]['address']:     #   Loop through address_book
-  #  print(name)
     if user_key in name:
-        print(name[user_key])   #   Prints phone number of [user_key] if it exists
+        print(name[user_key])   #   Prints value of [user_key] if it exists
         status = True
 
 
