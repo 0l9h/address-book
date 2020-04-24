@@ -26,12 +26,18 @@ if status == False:     #   if phone [user_key] doesn't exists
     choice_of_adding_name = input('Input "new" if you want to add this name to register\n\
 If you don\'t want to add this name, print "exit":\n')
     
+
+
+    '''Here you can add new user'''
+
     if choice_of_adding_name == 'new':
         new_name = user_key    #   Creating of new address_book member with [user_key] name
         new_phone_number = input('Input new number:\n')     #   Creating of new data
 
 
         
+        '''Here you can check either user printed correct information or not'''
+
         def CheckPhoneValidation(new_phone_number):
             CheckPhoneValidationStatus = True
             if len(new_phone_number) == 10:     #   Check if new_phone_number contains 10 chars
@@ -63,9 +69,10 @@ If you don\'t want to add this name, print "exit":\n')
                 print('Name is too short')
             return NameValidationStatus
 
-        #NameValidation(new_name)
-        #CheckPhoneValidation(new_phone_number)
 
+
+        '''Here, finally, if user printed correct information about new user,
+        we add this to our address book'''
 
         if NameValidation(new_name) and CheckPhoneValidation(new_phone_number):       #   If both CheckPhoneValidation() and NameValidation(new_name) return True:
             with open(address_book_file, 'w') as writefile:
@@ -80,3 +87,28 @@ If you don\'t want to add this name, print "exit":\n')
 
     elif choice_of_adding_name != 'exit':   #   if command == exit: stop executing
         raise NameError('Wrong command')    #   Raises NameError if command isn't neither 'new' nor 'exit'
+
+
+
+
+else:   #   if status == True
+
+
+    '''Here you can delete user'''
+
+    delete_command = input('Input "del" if you want to delete this name from address book:\n')
+    if delete_command == 'del':
+        try:
+            i = 0
+            for name in address_book[0]['address']:     #   Loop through address_book
+                if user_key in name:
+                    del address_book[0]['address'][i]       #   Deletes data about [user_key]
+                i+=1
+
+            with open('data.json', 'w') as data_file:
+                json.dump(address_book, data_file, indent=4)    #   Dumps new data into .json file
+
+            print('User succesfully deleted')
+
+        except:
+            print('Error. Can\'t delete this user')
