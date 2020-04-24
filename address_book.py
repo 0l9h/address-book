@@ -1,5 +1,8 @@
 import json
 
+from colorama import init
+from colorama import Fore, Back, Style
+init()                            #     colorama setup
 
 address_book_file = 'data.json'     #   file containing your data
 
@@ -46,11 +49,11 @@ If you don\'t want to add this name, print "exit":\n')
                         pass
                     else:
                         CheckPhoneValidationStatus = False       #   Returns False if at least one of chars isn't a digit (0-9)
-                        print('Phone number should contain only 0-9 chars')
+                        print(Fore.RED+'Phone number should contain only 0-9 chars')
                         break
             else:
                 CheckPhoneValidationStatus = False       #   Returns False if len(new_phone_number) != 10
-                print('Phone number should contain 10 chars')
+                print(Fore.RED+'Phone number should contain 10 chars')
             return CheckPhoneValidationStatus
 
 
@@ -62,11 +65,11 @@ If you don\'t want to add this name, print "exit":\n')
                         pass
                     else:
                         NameValidationStatus = False       #   Returns False if at least one of chars isn't a letter a-z/A-Z
-                        print('Name should contain only a-z/A-Z chars')
+                        print(Fore.RED+'Name should contain only a-z/A-Z chars')
                         break
             else:
                 NameValidationStatus = False       #   Returns False if len(new_name) < 3
-                print('Name is too short')
+                print(Fore.RED+'Name is too short')
             return NameValidationStatus
 
 
@@ -80,10 +83,10 @@ If you don\'t want to add this name, print "exit":\n')
                 new_info = {new_name:new_phone_number}
                 target.append(new_info)
                 json.dump(address_book, writefile, indent=4)     #   Putting into data.json new data
-                print('New user succesfully added')
+                print(Back.GREEN+'New user succesfully added')
 
         else:                                       #   If CheckPhoneValidation() or NameValidation() returns False:
-            print('Invalid data')           
+            print(Fore.RED+Style.BRIGHT+'Invalid data')           
 
     elif choice_of_adding_name != 'exit':   #   if command == exit: stop executing
         raise NameError('Wrong command')    #   Raises NameError if command isn't neither 'new' nor 'exit'
@@ -108,7 +111,7 @@ else:   #   if status == True
             with open('data.json', 'w') as data_file:
                 json.dump(address_book, data_file, indent=4)    #   Dumps new data into .json file
 
-            print('User succesfully deleted')
+            print(Back.RED+'User succesfully deleted')
 
         except:
-            print('Error. Can\'t delete this user')
+            print(Fore.RED+'Error. Can\'t delete this user')
