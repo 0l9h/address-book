@@ -2,7 +2,7 @@ import json
 
 from colorama import init
 from colorama import Fore, Back, Style
-init()                            #     colorama setup
+init(autoreset=True)                            #     colorama setup (Color changes will reset after usage for one object)
 
 address_book_file = 'data.json'     #   file containing your data
 
